@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO-er</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Сделать сегодня: <time></time></h1>
+
+      <section id="tasks_list">
+        <div class="grid">
+          <label for="task_1">
+            <input type="checkbox" id="task_1" />
+            <span> Прочитать "JavaScript Cookbook" 2 страницы </span>
+          </label>
+          <span class="material-symbols-outlined"> delete </span>
+        </div>
+        <div class="grid">
+          <label for="task_2">
+            <input type="checkbox" id="task_2" />
+            <span> Отправить документы в университет </span>
+          </label>
+          <span class="material-symbols-outlined"> delete </span>
+        </div>
+        <div class="grid">
+          <label for="task_3">
+            <input type="checkbox" id="task_3" />
+            <span> Медитация 30 минут </span>
+          </label>
+          <span class="material-symbols-outlined"> delete </span>
+        </div>
+      </section>
+
+      <section>
+        <form id="add_task_form">
+          <label for="add_task_text_field">Добавить задачу на сегодня</label>
+          <input type="text" id="add_task_text_field" name="task_text" />
+          <button>Добавить</button>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="main.js"></script>
+  </body>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+  </style>
+</html>
