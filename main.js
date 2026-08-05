@@ -4,14 +4,15 @@ import { setupTimeOfToday } from "./setupTimeOfToday.js";
 const form = document.getElementById("add_task_form");
 const input = document.getElementById("add_task_text_field");
 const taskRows = document.querySelectorAll(".task_element");
+const container = document.getElementById("tasks_list");
 const todoList = new List("tasks_list");
+const themeToggle = document.getElementById("theme-toggle");
 
 function beginProgram() {
   todoList.syncLocalStorageToList();
   todoList.synchronizeListToContainer();
   setupTimeOfToday();
   setupAddTaskEvent();
-  setupDeleteTaskEvents();
 }
 
 function setupAddTaskEvent() {
@@ -27,19 +28,36 @@ function setupAddTaskEvent() {
   });
 }
 
-function setupDeleteTaskEvents() {
-  const taskRows = document.querySelectorAll(".task_element");
-  taskRows.forEach((e) => {
-    const span = e.querySelector("span.delete");
-    const taskId = e.getAttribute("id")?.substring(5);
+container.addEventListener("click", (event) => {
+  if (
+    event.target.classList.contains("input_class") ||
+    event.target.classList.contains("label_class") ||
+    event.target.classList.contains("span_class")
+  ) {
+    const underscoreIndex = event.target.getAttribute("id")?.indexOf("_");
+    const taskId = event.target
+      .getAttribute("id")
+      ?.substring(underscoreIndex + 1);
+    todoList.toggleTask(taskId);
+    todoList.synchronizeListToLocalStorage();
+    todoList.synchronizeListToContainer();
+  } else if (event.target.classList.contains("delete")) {
+    const taskId = event.target.getAttribute("id")?.substring(5);
+    todoList.deleteTaskById(taskId);
+    todoList.synchronizeListToLocalStorage();
+    todoList.synchronizeListToContainer();
+  }
+});
 
-    span.addEventListener("click", () => {
-      todoList.deleteTaskById(taskId);
-      todoList.synchronizeListToLocalStorage();
-      todoList.synchronizeListToContainer();
-      setupDeleteTaskEvents();
-    });
-  });
-}
+themeToggle.addEventListener("click", () => {
+  const html = document.getElementsByTagName("html")?.[0];
+
+  console.log(html.getAttribute("data-theme"));
+  if (html.getAttribute("data-theme") === "dark") {
+    html.setAttribute("data-theme", "light");
+  } else {
+    html.setAttribute("data-theme", "dark");
+  }
+});
 
 beginProgram();

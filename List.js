@@ -14,12 +14,12 @@ export class List {
 
     this.list.forEach((e) => {
       this.listContainerHTML.innerHTML += `
-        <div class="grid task_element" id="todo_${e.id}">
-          <label for=${e.id}>
-            <input type="checkbox" id="${e.id}" value="${e.done ? true : false}" />
-            <span> ${e.text} </span>
+        <div class="task_element flex-center-between" id="todo_${e.id}">
+          <label for=${e.id} class="label_class" id="label_${e.id}">
+            <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done ? true : false}" ${e.done ? "checked" : ""} />
+            <span class="span_class" id="span_${e.id}"> ${e.text} </span>
           </label>
-          <span class="material-symbols-outlined delete"> delete </span>
+          <span class="material-symbols-outlined delete cursor-pointer"  id="span_${e.id}" > delete </span>
         </div>
         `;
     });
@@ -36,17 +36,20 @@ export class List {
 
   deleteTaskById(id) {
     const foundIndex = this.list.findIndex((e) => e.id === id);
+    if (foundIndex === -1) {
+      return;
+    }
     this.list.splice(foundIndex, 1);
   }
 
-  markTaskAsDone(id) {
+  toggleTask(id) {
     const foundTask = this.list.find((e) => e.id === id);
-    foundTask.done = true;
-  }
-
-  markTaskAsNotDone(id) {
-    const foundTask = this.list.find((e) => e.id === id);
-    foundTask.done = false;
+    if (!foundTask) return;
+    if (foundTask.done === true) {
+      foundTask.done = false;
+    } else if (foundTask.done === false) {
+      foundTask.done = true;
+    }
   }
 
   synchronizeListToLocalStorage() {
@@ -63,7 +66,6 @@ export class List {
   syncLocalStorageToList() {
     try {
       const todoList = localStorage.getItem(this.localStorageKey);
-      console.log(todoList);
       this.list = JSON.parse(todoList) || [];
     } catch (err) {
       this.list = [];
