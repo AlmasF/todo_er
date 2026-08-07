@@ -14,7 +14,7 @@ export class List {
 
     this.list.forEach((e) => {
       this.listContainerHTML.innerHTML += `
-        <div class="task_element flex-center-between" id="todo_${e.id}">
+        <div class="task_element flex-center-between" id="todo_${e.id}" draggable="true">
           <label for=${e.id} class="label_class" id="label_${e.id}">
             <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done ? true : false}" ${e.done ? "checked" : ""} />
             <span class="span_class" id="span_${e.id}"> ${e.text} </span>
@@ -72,5 +72,14 @@ export class List {
       localStorage.setItem(this.localStorageKey, "[]");
       console.error(err);
     }
+  }
+
+  setTaskAftert(dragTaskId, dropTaskId) {
+    const dragTask = { ...this.list.find((e) => e.id === dragTaskId) };
+    const dragTaskIndex = this.list.findIndex((e) => e.id === dragTaskId);
+    const dropTaskIndex = this.list.findIndex((e) => e.id === dropTaskId);
+
+    this.list.splice(dragTaskIndex, 1);
+    this.list.splice(dropTaskIndex + 1, 0, { ...dragTask });
   }
 }
