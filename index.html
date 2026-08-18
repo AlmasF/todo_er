@@ -16,26 +16,25 @@
   </head>
   <body>
     <main class="container">
-      <p id="theme-toggle" class="cursor-pointer">TODO-шка</p>
+      <p id="theme_toggler_id" class="cursor-pointer">TODO-шка</p>
       <h1>
         Cегодня: <time></time>
         <br />
         На часах: <time id="clock"></time>
       </h1>
 
-      <section id="tasks_list"></section>
+      <section id="list_container_id"></section>
 
       <section>
-        <form id="add_task_form">
-          <label for="add_task_text_field">Добавить задачу на сегодня</label>
-          <input type="text" id="add_task_text_field" name="task_text" />
+        <form id="add_task_form_id">
+          <label for="add_task_text_field_id">Добавить задачу на сегодня</label>
+          <input type="text" id="add_task_text_field_id" name="task_text" />
           <button>Добавить</button>
         </form>
       </section>
     </main>
   </body>
-  <script type="module" src="main.js"></script>
-  <script src="startTimer.js"></script>
+  <script type="module" src="./architecture/main.js"></script>
 
   <style>
     .material-symbols-outlined {
