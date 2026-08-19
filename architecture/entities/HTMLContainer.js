@@ -29,6 +29,7 @@ export class HTMLContainer {
   drawListOfTasks(list) {
     this.container.innerHTML = "";
 
+    list.sort((a, b) => a.index - b.index);
     list?.forEach((e) => {
       // 1. Создать временный элемент, чтобы почистить XSS
       const tempDiv = document.createElement("div");
@@ -45,6 +46,7 @@ export class HTMLContainer {
               <span class="span_class">${safeText}</span>
             </label>
             <mark class="priority_mark ${this.#map[e.priority]?.backgroundClass || ""}">${this.#map[e.priority]?.label || ""}</mark>
+            <span class="material-symbols-outlined drag_indicator">drag_indicator</span>
             <span class="material-symbols-outlined delete cursor-pointer">delete</span>
           </div>
         `,

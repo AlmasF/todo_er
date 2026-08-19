@@ -1,6 +1,7 @@
 import { HTMLContainer } from "./entities/HTMLContainer.js";
 import { List } from "./entities/List.js";
 import { LocalStorageInterface } from "./entities/LocalStorageInterface.js";
+import { GridLayout } from "./utils/GridLayout.js";
 import { setupTimeOfToday } from "./utils/setupTimeOfToday.js";
 import { startTimer } from "./utils/startTimer.js";
 
@@ -57,3 +58,4 @@ listEntity.setValues(listStorage.readFromLocalStorage() || []);
 listContainer.drawListOfTasks(listEntity.readValues());
 setupTimeOfToday();
 startTimer();
+GridLayout();

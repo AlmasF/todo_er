@@ -46,3 +46,8 @@
   margin-left: auto;
   margin-right: 1rem;
 }
+
+.drag_indicator {
+  margin-right: 2rem;
+  cursor: grab;
+}

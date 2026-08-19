@@ -11,11 +11,13 @@ export class List {
    * @param {'high' | 'medium' | 'low'} priority Приорите для выполнения
    */
   addTask(text, priority) {
+    const lastIndex = this.#values.length;
     const newTask = {
       id: Math.random().toString().slice(2, 10),
       text: text,
       done: false,
       priority: priority,
+      index: lastIndex,
     };
     this.#values.push(newTask);
   }
@@ -36,6 +38,11 @@ export class List {
     } else if (foundTask.done === false) {
       foundTask.done = true;
     }
+  }
+
+  changeTaskIndexOfTaskById(id, index) {
+    const foundTask = this.#values.find((e) => e.id === id);
+    foundTask.index = index;
   }
 
   readValues() {
