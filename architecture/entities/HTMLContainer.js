@@ -44,7 +44,7 @@ export class HTMLContainer {
               <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done}" ${e.done ? "checked" : ""} />
               <span class="span_class">${safeText}</span>
             </label>
-            <mark class="priority_mark ${this.#map[e.priority].backgroundClass}">${this.#map[e.priority].label}</mark>
+            <mark class="priority_mark ${this.#map[e.priority]?.backgroundClass || ""}">${this.#map[e.priority]?.label || ""}</mark>
             <span class="material-symbols-outlined delete cursor-pointer">delete</span>
           </div>
         `,
