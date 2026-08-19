@@ -1,0 +1,25 @@
+{
+  "name": "todo_er",
+  "version": "1.0.0",
+  "description": "Тудушка. Простая",
+  "homepage": "https://github.com/AlmasF/todo_er#readme",
+  "bugs": {
+    "url": "https://github.com/AlmasF/todo_er/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlmasF/todo_er.git"
+  },
+  "license": "MIT",
+  "author": "Almas.A",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  }
+}
