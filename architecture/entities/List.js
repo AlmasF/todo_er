@@ -5,11 +5,17 @@ export class List {
     this.#values = [];
   }
 
-  addTask(text) {
+  /**
+   * Добавление и создание новой задачи в список
+   * @param {string} text Текст задачи
+   * @param {'high' | 'medium' | 'low'} priority Приорите для выполнения
+   */
+  addTask(text, priority) {
     const newTask = {
       id: Math.random().toString().slice(2, 10),
       text: text,
       done: false,
+      priority: priority,
     };
     this.#values.push(newTask);
   }

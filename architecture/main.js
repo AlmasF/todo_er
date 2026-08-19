@@ -13,20 +13,17 @@ const themeToggle = document.getElementById("theme_toggler_id");
 const inputTextField = document.getElementById("add_task_text_field_id");
 
 listContainer.container.addEventListener("click", (event) => {
+  const taskRow = event.target.closest(".task_element");
+  const taskId = taskRow?.dataset.id;
   if (
     event.target.classList.contains("input_class") ||
     event.target.classList.contains("label_class") ||
     event.target.classList.contains("span_class")
   ) {
-    const underscoreIndex = event.target.getAttribute("id")?.indexOf("_");
-    const taskId = event.target
-      .getAttribute("id")
-      ?.substring(underscoreIndex + 1);
     listEntity.toggleTask(taskId);
     listStorage.writeToLocalStorage(listEntity.readValues());
     listContainer.drawListOfTasks(listEntity.readValues());
   } else if (event.target.classList.contains("delete")) {
-    const taskId = event.target.getAttribute("id")?.substring(5);
     listEntity.deleteTaskById(taskId);
     listStorage.writeToLocalStorage(listEntity.readValues());
     listContainer.drawListOfTasks(listEntity.readValues());
@@ -38,7 +35,7 @@ addTaskForm.addEventListener("submit", (e) => {
   const formData = new FormData(addTaskForm);
   const data = Object.fromEntries(formData.entries());
 
-  listEntity.addTask(data.task_text);
+  listEntity.addTask(data.task_text, data.priority);
   listStorage.writeToLocalStorage(listEntity.readValues());
   listContainer.drawListOfTasks(listEntity.readValues());
   inputTextField.value = "";

@@ -7,6 +7,21 @@ export class HTMLContainer {
     this.container = document.getElementById(containerId);
   }
 
+  #map = {
+    high: {
+      backgroundClass: "pico-background-red-500",
+      label: "Срочно",
+    },
+    medium: {
+      backgroundClass: "pico-background-yellow-500",
+      label: "Несрочно",
+    },
+    low: {
+      backgroundClass: "pico-background-green-500",
+      label: "Можно отложить",
+    },
+  };
+
   /**
    * Отрисовка списка
    * @param {List} list
@@ -15,15 +30,25 @@ export class HTMLContainer {
     this.container.innerHTML = "";
 
     list?.forEach((e) => {
-      this.container.innerHTML += `
-        <div class="task_element flex-center-between" id="todo_${e.id}">
-          <label for=${e.id} class="label_class" id="label_${e.id}">
-            <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done ? true : false}" ${e.done ? "checked" : ""} />
-            <span class="span_class" id="span_${e.id}"> ${e.text} </span>
-          </label>
-          <span class="material-symbols-outlined delete cursor-pointer"  id="span_${e.id}" > delete </span>
-        </div>
-        `;
+      // 1. Создать временный элемент, чтобы почистить XSS
+      const tempDiv = document.createElement("div");
+      tempDiv.innerText = e.text;
+      const safeText = tempDiv.innerHTML; // Модифицирование < в &lt;, > в &gt;, и т.п.
+
+      // 2. Безопасная инъекция HTML
+      this.container.insertAdjacentHTML(
+        "beforeend",
+        `
+          <div class="task_element flex-center-start" data-id="${e.id}">
+            <label for="input_${e.id}" class="label_class">
+              <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done}" ${e.done ? "checked" : ""} />
+              <span class="span_class">${safeText}</span>
+            </label>
+            <mark class="priority_mark ${this.#map[e.priority].backgroundClass}">${this.#map[e.priority].label}</mark>
+            <span class="material-symbols-outlined delete cursor-pointer">delete</span>
+          </div>
+        `,
+      );
     });
   }
 }

@@ -9,9 +9,19 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete"
     />
+    <link rel="stylesheet" href="architecture/styles/index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SECURITY -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'sha256-vvt4KWwuNr51XfE5m+hzeNEGhiOfZzG97ccfqGsPwvE='; style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' ws://localhost:*;"
+    />
     <title>TODO-er</title>
   </head>
   <body>
@@ -28,31 +38,31 @@
       <section>
         <form id="add_task_form_id">
           <label for="add_task_text_field_id">Добавить задачу на сегодня</label>
-          <input type="text" id="add_task_text_field_id" name="task_text" />
-          <button>Добавить</button>
+          <input
+            type="text"
+            id="add_task_text_field_id"
+            name="task_text"
+            required
+            pattern=".*\S.*"
+            title="не может быть пустым"
+            aria-label="Поле ввода для текста задачи"
+          />
+          <select
+            name="priority"
+            aria-label="Установите приоритет для задачи"
+            required
+          >
+            <option selected disabled value="">
+              Установите приоритет для задачи
+            </option>
+            <option value="high">Важно</option>
+            <option selected value="medium">Несрочно</option>
+            <option value="low">Можно отложить</option>
+          </select>
+          <button role="button" aria-label="Добавить">Добавить</button>
         </form>
       </section>
     </main>
   </body>
   <script type="module" src="./architecture/main.js"></script>
-
-  <style>
-    .material-symbols-outlined {
-      font-variation-settings:
-        "FILL" 0,
-        "wght" 400,
-        "GRAD" 0,
-        "opsz" 24;
-    }
-
-    .cursor-pointer {
-      cursor: pointer;
-    }
-
-    .flex-center-between {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-  </style>
 </html>
