@@ -40,16 +40,24 @@ export class List {
     }
   }
 
-  changeTaskIndexOfTaskById(id, index) {
-    const foundTask = this.#values.find((e) => e.id === id);
-    foundTask.index = index;
-  }
-
   readValues() {
     return this.#values;
   }
 
   setValues(value) {
     this.#values = value;
+  }
+
+  moveArrayItemInPlace(oldIndex, newIndex) {
+    const arr = this.#values;
+    if (newIndex >= arr.length) {
+      let k = newIndex - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
+
+    console.log(arr);
   }
 }

@@ -24,14 +24,24 @@
 
 .task_element {
   padding: 0.5rem 0.5rem;
+  background-color: aliceblue;
+  border-radius: 12px;
+  margin-bottom: 10px;
 }
 .task_element .label_class {
   margin-bottom: 0;
+}
+.task_element .span_class,
+.task_element .drag_indicator,
+.task_element .delete {
+  color: black;
 }
 
 .task_element:hover {
   border-radius: var(--pico-border-radius);
   background-color: var(--pico-primary-hover-background);
+  border-radius: 12px;
+  margin-bottom: 10px;
 }
 
 .task_element:hover span {

@@ -1,7 +1,7 @@
+import { Sortable } from "@shopify/draggable";
 import { HTMLContainer } from "./entities/HTMLContainer.js";
 import { List } from "./entities/List.js";
 import { LocalStorageInterface } from "./entities/LocalStorageInterface.js";
-import { GridLayout } from "./utils/GridLayout.js";
 import { setupTimeOfToday } from "./utils/setupTimeOfToday.js";
 import { startTimer } from "./utils/startTimer.js";
 
@@ -58,4 +58,16 @@ listEntity.setValues(listStorage.readFromLocalStorage() || []);
 listContainer.drawListOfTasks(listEntity.readValues());
 setupTimeOfToday();
 startTimer();
-GridLayout();
+const containers = document.querySelectorAll("#list_container_id");
+const sortable = new Sortable(containers, {
+  draggable: ".task_element",
+  handle: ".drag_indicator",
+  mirror: {
+    constrainDimensions: true,
+  },
+});
+
+sortable.on("sortable:stop", (event) => {
+  listEntity.moveArrayItemInPlace(event?.oldIndex, event?.newIndex);
+  listStorage.writeToLocalStorage(listEntity.readValues());
+});

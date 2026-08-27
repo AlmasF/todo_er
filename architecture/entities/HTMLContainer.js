@@ -29,7 +29,6 @@ export class HTMLContainer {
   drawListOfTasks(list) {
     this.container.innerHTML = "";
 
-    list.sort((a, b) => a.index - b.index);
     list?.forEach((e) => {
       // 1. Создать временный элемент, чтобы почистить XSS
       const tempDiv = document.createElement("div");
