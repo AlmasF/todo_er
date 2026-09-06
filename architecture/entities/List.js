@@ -30,6 +30,16 @@ export class List {
     this.#values.splice(foundIndex, 1);
   }
 
+  toggleTaskAsCrossedById(id) {
+    const foundTask = this.#values.find((e) => e.id === id);
+    if (!foundTask) return;
+    if (foundTask.done === true) {
+      foundTask.crossed = false;
+    } else if (foundTask.done === false) {
+      foundTask.crossed = true;
+    }
+  }
+
   toggleTask(id) {
     const foundTask = this.#values.find((e) => e.id === id);
     if (!foundTask) return;

@@ -1,3 +1,5 @@
+/* css var is 412px */
+
 .material-symbols-outlined {
   font-variation-settings:
     "FILL" 0,
@@ -60,4 +62,8 @@
 .drag_indicator {
   margin-right: 2rem;
   cursor: grab;
+
+  @media (max-width: 412px) {
+    margin-right: 1rem;
+  }
 }
