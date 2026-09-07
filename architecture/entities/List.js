@@ -67,7 +67,5 @@ export class List {
       }
     }
     arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
-
-    console.log(arr);
   }
 }

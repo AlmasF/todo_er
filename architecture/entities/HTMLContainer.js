@@ -1,3 +1,13 @@
+import {
+  TASK_ELEMENT_DELETE_CLASS,
+  TASK_ELEMENT_EVENT_BIND_CLASS,
+  TASK_ELEMENT_INPUT_CLASS,
+  TASK_ELEMENT_LABEL_CLASS,
+  TASK_ELEMENT_SHOPIFY_BIND_CLASS,
+  TASK_ELEMENT_SHOPIFY_DRAG_CLASS,
+  TASK_ELEMENT_SPAN_CLASS,
+} from "../utils/constants";
+
 export class HTMLContainer {
   /**
    * Конструктор для контейнера
@@ -9,15 +19,12 @@ export class HTMLContainer {
 
   #map = {
     high: {
-      backgroundClass: "pico-background-red-500",
       label: "Срочно",
     },
     medium: {
-      backgroundClass: "pico-background-yellow-500",
       label: "Несрочно",
     },
     low: {
-      backgroundClass: "pico-background-green-500",
       label: "Можно отложить",
     },
   };
@@ -39,14 +46,14 @@ export class HTMLContainer {
       this.container.insertAdjacentHTML(
         "beforeend",
         `
-          <div class="task_element flex-center-start" data-id="${e.id}">
-            <label for="input_${e.id}" class="label_class">
-              <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done}" ${e.done ? "checked" : ""} />
-              <span class="span_class">${safeText}</span>
+          <div data-id="${e.id}" class="${TASK_ELEMENT_EVENT_BIND_CLASS} ${TASK_ELEMENT_SHOPIFY_BIND_CLASS} flex items-center justify-start bg-blue-300 rounded-2xl p-3 text-2xl">
+            <label class="${TASK_ELEMENT_LABEL_CLASS} w-full cursor-pointer">
+              <input class=${TASK_ELEMENT_INPUT_CLASS} type="checkbox" value="${e.done}" ${e.done ? "checked" : ""} />
+              <span class="${TASK_ELEMENT_SPAN_CLASS} text-black">${safeText}</span>
             </label>
-            <mark class="priority_mark ${this.#map[e.priority]?.backgroundClass || ""}">${this.#map[e.priority]?.label || ""}</mark>
-            <span class="material-symbols-outlined drag_indicator">drag_indicator</span>
-            <span class="material-symbols-outlined delete cursor-pointer">delete</span>
+            <mark class="ml-auto mr-4">${this.#map[e.priority]?.label || ""}</mark>
+            <span class="${TASK_ELEMENT_SHOPIFY_DRAG_CLASS} material-symbols-outlined mr-4 md:mr-8 cursor-grab text-black">drag_indicator</span>
+            <span class="${TASK_ELEMENT_DELETE_CLASS} material-symbols-outlined text-black cursor-pointer">delete</span>
           </div>
         `,
       );
