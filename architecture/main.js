@@ -4,27 +4,42 @@ import { List } from "./entities/List.js";
 import { LocalStorageInterface } from "./entities/LocalStorageInterface.js";
 import { setupTimeOfToday } from "./utils/setupTimeOfToday.js";
 import { startTimer } from "./utils/startTimer.js";
+import {
+  ADD_TASK_FORM_ID,
+  ADD_TASK_TEXT_FIELD_ID,
+  STORAGE_LIST_KEY,
+  TASK_CONTAINER_ID,
+  TASK_ELEMENT_DELETE_CLASS,
+  TASK_ELEMENT_EVENT_BIND_CLASS,
+  TASK_ELEMENT_INPUT_CLASS,
+  TASK_ELEMENT_LABEL_CLASS,
+  TASK_ELEMENT_SHOPIFY_BIND_CLASS,
+  TASK_ELEMENT_SHOPIFY_DRAG_CLASS,
+  TASK_ELEMENT_SPAN_CLASS,
+} from "./utils/constants.js";
+import { MainContainer } from "./entities/MainContainer.js";
 
 const listEntity = new List();
-const listStorage = new LocalStorageInterface("list");
-const listContainer = new HTMLContainer("LIST_CONTAINER_ID");
+const listStorage = new LocalStorageInterface(STORAGE_LIST_KEY);
+const mainContainer = new MainContainer();
+mainContainer.mountMainTag();
+const listContainer = new HTMLContainer(TASK_CONTAINER_ID);
 
-const addTaskForm = document.getElementById("add_task_form_id");
-const themeToggle = document.getElementById("theme_toggler_id");
-const inputTextField = document.getElementById("add_task_text_field_id");
+const addTaskForm = document.getElementById(ADD_TASK_FORM_ID);
+const inputTextField = document.getElementById(ADD_TASK_TEXT_FIELD_ID);
 
 listContainer.container.addEventListener("click", (event) => {
-  const taskRow = event.target.closest(".CLICK_EVENT_CLASS_FOR_TASK_ELEMENT");
+  const taskRow = event.target.closest(`.${TASK_ELEMENT_EVENT_BIND_CLASS}`);
   const taskId = taskRow?.dataset.id;
   if (
-    event.target.classList.contains("input_class") ||
-    event.target.classList.contains("label_class") ||
-    event.target.classList.contains("span_class")
+    event.target.classList.contains(TASK_ELEMENT_INPUT_CLASS) ||
+    event.target.classList.contains(TASK_ELEMENT_LABEL_CLASS) ||
+    event.target.classList.contains(TASK_ELEMENT_SPAN_CLASS)
   ) {
     listEntity.toggleTask(taskId);
     listStorage.writeToLocalStorage(listEntity.readValues());
     listContainer.drawListOfTasks(listEntity.readValues());
-  } else if (event.target.classList.contains("delete")) {
+  } else if (event.target.classList.contains(TASK_ELEMENT_DELETE_CLASS)) {
     listEntity.deleteTaskById(taskId);
     listStorage.writeToLocalStorage(listEntity.readValues());
     listContainer.drawListOfTasks(listEntity.readValues());
@@ -42,26 +57,16 @@ addTaskForm.addEventListener("submit", (e) => {
   inputTextField.value = "";
 });
 
-themeToggle.addEventListener("click", () => {
-  const html = document.getElementsByTagName("html")?.[0];
-
-  if (html.getAttribute("data-theme") === "dark") {
-    html.setAttribute("data-theme", "light");
-  } else {
-    html.setAttribute("data-theme", "dark");
-  }
-});
-
 // Важно возвращать пустой массив иначе, потому что можно просто пропустить этот момент и все сломается
 // список значений снова будет пустым
 listEntity.setValues(listStorage.readFromLocalStorage() || []);
 listContainer.drawListOfTasks(listEntity.readValues());
 setupTimeOfToday();
 startTimer();
-const containers = document.querySelectorAll("#LIST_CONTAINER_ID");
+const containers = document.querySelectorAll(`#${TASK_CONTAINER_ID}`);
 const sortable = new Sortable(containers, {
-  draggable: ".SHOPIFY_task_element",
-  handle: ".SHOPIFY_drag_indicator",
+  draggable: `.${TASK_ELEMENT_SHOPIFY_BIND_CLASS}`,
+  handle: `.${TASK_ELEMENT_SHOPIFY_DRAG_CLASS}`,
   mirror: {
     constrainDimensions: true,
   },
