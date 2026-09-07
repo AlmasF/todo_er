@@ -5,17 +5,9 @@
     <meta name="color-scheme" content="light dark" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"
-    />
-    <link
-      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete,drag_indicator"
     />
-    <link rel="stylesheet" href="architecture/styles/index.css" />
+    <link rel="stylesheet" href="architecture/styles/main.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- SECURITY -->
     <meta
@@ -44,19 +36,19 @@
     <title>TODO-er</title>
   </head>
   <body>
-    <main class="container">
-      <p id="theme_toggler_id" class="cursor-pointer">TODO-шка</p>
-      <h1>
+    <main class="mt-10 mx-auto max-w-4/5 md:max-w-6xl">
+      <p id="theme_toggler_id" class="cursor-pointer text-5xl">TODO-шка</p>
+      <h1 class="text-3xl mt-8">
         Cегодня: <time></time>
         <br />
         На часах: <time id="clock"></time>
       </h1>
 
-      <section id="list_container_id"></section>
+      <section id="LIST_CONTAINER_ID" class="mt-10 flex flex-col justify-between gap-3"></section>
 
       <section>
-        <form id="add_task_form_id">
-          <label for="add_task_text_field_id">Добавить задачу на сегодня</label>
+        <form id="add_task_form_id" class="flex flex-col">
+          <label for="add_task_text_field_id" class="text-2xl mt-10">Добавить задачу на сегодня</label>
           <input
             type="text"
             id="add_task_text_field_id"
@@ -65,11 +57,15 @@
             pattern=".*\S.*"
             title="не может быть пустым"
             aria-label="Поле ввода для текста задачи"
+            class="border border-solid rounded-2xl text-2xl p-2 mt-2"
           />
+          <label for="choose_priority_select_field_id" class="text-2xl mt-6">Установите приоритет</label>
           <select
             name="priority"
             aria-label="Установите приоритет для задачи"
             required
+            id="choose_priority_select_field_id"
+            class="border border-solid rounded-2xl text-2xl p-2 mt-2"
           >
             <option selected disabled value="">
               Установите приоритет для задачи
@@ -78,7 +74,7 @@
             <option selected value="medium">Несрочно</option>
             <option value="low">Можно отложить</option>
           </select>
-          <button role="button" aria-label="Добавить">Добавить</button>
+          <button role="button" aria-label="Добавить" class="w-full rounded-2xl text-2xl p-2 border border-solid cursor-pointer mt-5 hover:bg-blue-500 hover:text-yellow-200">Добавить</button>
         </form>
       </section>
     </main>

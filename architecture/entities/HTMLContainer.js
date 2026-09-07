@@ -39,14 +39,14 @@ export class HTMLContainer {
       this.container.insertAdjacentHTML(
         "beforeend",
         `
-          <div class="task_element flex-center-start" data-id="${e.id}">
+          <div class="SHOPIFY_task_element CLICK_EVENT_CLASS_FOR_TASK_ELEMENT flex items-center justify-start bg-blue-300 rounded-2xl p-3 text-2xl" data-id="${e.id}">
             <label for="input_${e.id}" class="label_class">
               <input type="checkbox" class="input_class" id="input_${e.id}" value="${e.done}" ${e.done ? "checked" : ""} />
-              <span class="span_class">${safeText}</span>
+              <span class="text-black">${safeText}</span>
             </label>
-            <mark class="priority_mark ${this.#map[e.priority]?.backgroundClass || ""}">${this.#map[e.priority]?.label || ""}</mark>
-            <span class="material-symbols-outlined drag_indicator">drag_indicator</span>
-            <span class="material-symbols-outlined delete cursor-pointer">delete</span>
+            <mark class="ml-auto mr-4 ${this.#map[e.priority]?.backgroundClass || ""}">${this.#map[e.priority]?.label || ""}</mark>
+            <span class="material-symbols-outlined mr-4 md:mr-8 cursor-grab text-black SHOPIFY_drag_indicator">drag_indicator</span>
+            <span class="material-symbols-outlined text-black cursor-pointer">delete</span>
           </div>
         `,
       );

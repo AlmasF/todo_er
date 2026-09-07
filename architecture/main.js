@@ -7,14 +7,14 @@ import { startTimer } from "./utils/startTimer.js";
 
 const listEntity = new List();
 const listStorage = new LocalStorageInterface("list");
-const listContainer = new HTMLContainer("list_container_id");
+const listContainer = new HTMLContainer("LIST_CONTAINER_ID");
 
 const addTaskForm = document.getElementById("add_task_form_id");
 const themeToggle = document.getElementById("theme_toggler_id");
 const inputTextField = document.getElementById("add_task_text_field_id");
 
 listContainer.container.addEventListener("click", (event) => {
-  const taskRow = event.target.closest(".task_element");
+  const taskRow = event.target.closest(".CLICK_EVENT_CLASS_FOR_TASK_ELEMENT");
   const taskId = taskRow?.dataset.id;
   if (
     event.target.classList.contains("input_class") ||
@@ -58,10 +58,10 @@ listEntity.setValues(listStorage.readFromLocalStorage() || []);
 listContainer.drawListOfTasks(listEntity.readValues());
 setupTimeOfToday();
 startTimer();
-const containers = document.querySelectorAll("#list_container_id");
+const containers = document.querySelectorAll("#LIST_CONTAINER_ID");
 const sortable = new Sortable(containers, {
-  draggable: ".task_element",
-  handle: ".drag_indicator",
+  draggable: ".SHOPIFY_task_element",
+  handle: ".SHOPIFY_drag_indicator",
   mirror: {
     constrainDimensions: true,
   },
