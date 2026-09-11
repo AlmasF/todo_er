@@ -17,7 +17,7 @@ export class LocalStorageInterface {
     } catch (error) {
       console.error(
         `Ошибка записи в LocalStorage по ключу "${this.#key}":`,
-        error,
+        error
       );
       // Если не удалось записать (например, превышен лимит), очищаем битые данные
       this.clear();
@@ -35,7 +35,7 @@ export class LocalStorageInterface {
     } catch (error) {
       console.error(
         `Ошибка чтения из LocalStorage по ключу "${this.#key}":`,
-        error,
+        error
       );
       this.clear(); // Очищаем ключ, если там лежал невалидный JSON
       return []; // Возвращаем предсказуемый пустой массив вместо null

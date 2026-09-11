@@ -10,11 +10,12 @@ export function isElement(obj) {
     //Browsers not supporting W3 DOM2 don't have HTMLElement and
     //an exception is thrown and we end up here. Testing some
     //properties that all elements have (works on IE7)
+    console.error('isElement: ', e);
     return (
-      typeof obj === "object" &&
+      typeof obj === 'object' &&
       obj.nodeType === 1 &&
-      typeof obj.style === "object" &&
-      typeof obj.ownerDocument === "object"
+      typeof obj.style === 'object' &&
+      typeof obj.ownerDocument === 'object'
     );
   }
 }

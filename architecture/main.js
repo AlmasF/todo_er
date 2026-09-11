@@ -1,9 +1,9 @@
-import { Sortable } from "@shopify/draggable";
-import { HTMLContainer } from "./entities/HTMLContainer.js";
-import { List } from "./entities/List.js";
-import { LocalStorageInterface } from "./entities/LocalStorageInterface.js";
-import { setupTimeOfToday } from "./utils/setupTimeOfToday.js";
-import { startTimer } from "./utils/startTimer.js";
+import { Sortable } from '@shopify/draggable';
+import { HTMLContainer } from './entities/HTMLContainer.js';
+import { List } from './entities/List.js';
+import { LocalStorageInterface } from './entities/LocalStorageInterface.js';
+import { setupTimeOfToday } from './utils/setupTimeOfToday.js';
+import { startTimer } from './utils/startTimer.js';
 import {
   ADD_TASK_FORM_ID,
   ADD_TASK_TEXT_FIELD_ID,
@@ -16,8 +16,8 @@ import {
   TASK_ELEMENT_SHOPIFY_BIND_CLASS,
   TASK_ELEMENT_SHOPIFY_DRAG_CLASS,
   TASK_ELEMENT_SPAN_CLASS,
-} from "./utils/constants.js";
-import { MainContainer } from "./entities/MainContainer.js";
+} from './utils/constants.js';
+import { MainContainer } from './entities/MainContainer.js';
 
 const listEntity = new List();
 const listStorage = new LocalStorageInterface(STORAGE_LIST_KEY);
@@ -28,7 +28,7 @@ const listContainer = new HTMLContainer(TASK_CONTAINER_ID);
 const addTaskForm = document.getElementById(ADD_TASK_FORM_ID);
 const inputTextField = document.getElementById(ADD_TASK_TEXT_FIELD_ID);
 
-listContainer.container.addEventListener("click", (event) => {
+listContainer.container.addEventListener('click', (event) => {
   const taskRow = event.target.closest(`.${TASK_ELEMENT_EVENT_BIND_CLASS}`);
   const taskId = taskRow?.dataset.id;
   if (
@@ -46,7 +46,7 @@ listContainer.container.addEventListener("click", (event) => {
   }
 });
 
-addTaskForm.addEventListener("submit", (e) => {
+addTaskForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(addTaskForm);
   const data = Object.fromEntries(formData.entries());
@@ -54,7 +54,7 @@ addTaskForm.addEventListener("submit", (e) => {
   listEntity.addTask(data.task_text, data.priority);
   listStorage.writeToLocalStorage(listEntity.readValues());
   listContainer.drawListOfTasks(listEntity.readValues());
-  inputTextField.value = "";
+  inputTextField.value = '';
 });
 
 // Важно возвращать пустой массив иначе, потому что можно просто пропустить этот момент и все сломается
@@ -72,7 +72,7 @@ const sortable = new Sortable(containers, {
   },
 });
 
-sortable.on("sortable:stop", (event) => {
+sortable.on('sortable:stop', (event) => {
   listEntity.moveArrayItemInPlace(event?.oldIndex, event?.newIndex);
   listStorage.writeToLocalStorage(listEntity.readValues());
 });
