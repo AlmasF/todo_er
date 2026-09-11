@@ -1,13 +1,13 @@
-import { isElement } from "../utils/checkIfHTMLNode";
+import { isElement } from '../utils/checkIfHTMLNode';
 import {
   ADD_TASK_FORM_ID,
   ADD_TASK_TEXT_FIELD_ID,
   TASK_CONTAINER_ID,
-} from "../utils/constants";
+} from '../utils/constants';
 
 export class MainContainer {
   constructor() {
-    this.body = document.getElementsByTagName("body")?.[0];
+    this.body = document.getElementsByTagName('body')?.[0];
   }
 
   mountMainTag() {
@@ -56,7 +56,7 @@ export class MainContainer {
         `;
     if (this.body && isElement(this.body)) {
       try {
-        this.body.insertAdjacentHTML("afterbegin", mainTag);
+        this.body.insertAdjacentHTML('afterbegin', mainTag);
       } catch (err) {
         console.error(err);
       }
