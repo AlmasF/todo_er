@@ -7,6 +7,11 @@ import { startTimer } from './utils/startTimer.js';
 import {
   ADD_TASK_FORM_ID,
   ADD_TASK_TEXT_FIELD_ID,
+  CONFIRM_DELETE_DIALOG_CLOSE_BUTTON_ID,
+  CONFIRM_DELETE_DIALOG_ID,
+  CONFIRM_DELETE_DIALOG_NO_BUTTON_ID,
+  CONFIRM_DELETE_DIALOG_TASK_TEXT_PARAGRAPH_ID,
+  CONFIRM_DELETE_DIALOG_YES_BUTTON_ID,
   STORAGE_LIST_KEY,
   TASK_CONTAINER_ID,
   TASK_ELEMENT_DELETE_CLASS,
@@ -28,6 +33,20 @@ const listContainer = new HTMLContainer(TASK_CONTAINER_ID);
 const addTaskForm = document.getElementById(ADD_TASK_FORM_ID);
 const inputTextField = document.getElementById(ADD_TASK_TEXT_FIELD_ID);
 
+const confirmDialog = document.getElementById(CONFIRM_DELETE_DIALOG_ID);
+const confirmDialogCloseButton = document.getElementById(
+  CONFIRM_DELETE_DIALOG_CLOSE_BUTTON_ID
+);
+const confirmDialogYesButton = document.getElementById(
+  CONFIRM_DELETE_DIALOG_YES_BUTTON_ID
+);
+const confirmDialogNoButton = document.getElementById(
+  CONFIRM_DELETE_DIALOG_NO_BUTTON_ID
+);
+const confirmDialogTextParagraph = document.getElementById(
+  CONFIRM_DELETE_DIALOG_TASK_TEXT_PARAGRAPH_ID
+);
+
 listContainer.container.addEventListener('click', (event) => {
   const taskRow = event.target.closest(`.${TASK_ELEMENT_EVENT_BIND_CLASS}`);
   const taskId = taskRow?.dataset.id;
@@ -40,9 +59,12 @@ listContainer.container.addEventListener('click', (event) => {
     listStorage.writeToLocalStorage(listEntity.readValues());
     listContainer.drawListOfTasks(listEntity.readValues());
   } else if (event.target.classList.contains(TASK_ELEMENT_DELETE_CLASS)) {
-    listEntity.deleteTaskById(taskId);
-    listStorage.writeToLocalStorage(listEntity.readValues());
-    listContainer.drawListOfTasks(listEntity.readValues());
+    const taskText = taskRow.children?.[0]?.children?.[1]?.innerText;
+    const taskMark = taskRow.children?.[1]?.innerText;
+    const textNode = document.createTextNode(`${taskText} - ${taskMark}`);
+    confirmDialog.showModal();
+    confirmDialog.setAttribute('data-id', taskId);
+    confirmDialogTextParagraph.appendChild(textNode);
   }
 });
 
@@ -55,6 +77,22 @@ addTaskForm.addEventListener('submit', (e) => {
   listStorage.writeToLocalStorage(listEntity.readValues());
   listContainer.drawListOfTasks(listEntity.readValues());
   inputTextField.value = '';
+});
+
+confirmDialogCloseButton.addEventListener('click', () => {
+  confirmDialog.close();
+});
+confirmDialogYesButton.addEventListener('click', () => {
+  const taskId = confirmDialog?.dataset.id;
+  listEntity.deleteTaskById(taskId);
+  listStorage.writeToLocalStorage(listEntity.readValues());
+  listContainer.drawListOfTasks(listEntity.readValues());
+  confirmDialog.setAttribute('data-id', null);
+  confirmDialogTextParagraph.innerHTML = '';
+  confirmDialog.close();
+});
+confirmDialogNoButton.addEventListener('click', () => {
+  confirmDialog.close();
 });
 
 // Важно возвращать пустой массив иначе, потому что можно просто пропустить этот момент и все сломается

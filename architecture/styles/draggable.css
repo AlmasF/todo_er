@@ -1,0 +1,8 @@
+.TASK_ELEMENT_SHOPIFY_BIND_CLASS {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.TASK_ELEMENT_SHOPIFY_BIND_CLASS.draggable--over {
+  opacity: 0.5;
+}

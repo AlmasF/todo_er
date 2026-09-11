@@ -1,2 +1,4 @@
+@import url('./draggable.css');
 @import url('./material-symbols-outlined.css');
+@import url('./dialog.css');
 @import 'tailwindcss';
