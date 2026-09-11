@@ -79,7 +79,12 @@ addTaskForm.addEventListener('submit', (e) => {
   inputTextField.value = '';
 });
 
+function resetDialogState() {
+  confirmDialog.setAttribute('data-id', null);
+  confirmDialogTextParagraph.innerHTML = '';
+}
 confirmDialogCloseButton.addEventListener('click', () => {
+  resetDialogState();
   confirmDialog.close();
 });
 confirmDialogYesButton.addEventListener('click', () => {
@@ -87,11 +92,11 @@ confirmDialogYesButton.addEventListener('click', () => {
   listEntity.deleteTaskById(taskId);
   listStorage.writeToLocalStorage(listEntity.readValues());
   listContainer.drawListOfTasks(listEntity.readValues());
-  confirmDialog.setAttribute('data-id', null);
-  confirmDialogTextParagraph.innerHTML = '';
+  resetDialogState();
   confirmDialog.close();
 });
 confirmDialogNoButton.addEventListener('click', () => {
+  resetDialogState();
   confirmDialog.close();
 });
 
